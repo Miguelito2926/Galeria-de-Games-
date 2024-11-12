@@ -2,6 +2,7 @@ package com.ednaldo.List.Games.controllers;
 
 import com.ednaldo.List.Games.dto.GameDetails;
 import com.ednaldo.List.Games.dto.GameSimpleDTO;
+import com.ednaldo.List.Games.dto.ListGameDTO;
 import com.ednaldo.List.Games.services.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,14 +21,16 @@ public class GameController {
     private GameService gameService;
 
     @GetMapping
-    public ResponseEntity<List<GameSimpleDTO>> listGames() {
-       List<GameSimpleDTO> list = gameService.findAll();
+    public ResponseEntity<List<GameSimpleDTO>> findAllGames() {
+       List<GameSimpleDTO> list = gameService.findAllGames();
+
        return ResponseEntity.ok().body(list);
     }
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<GameDetails> gameById(@PathVariable  Long id) throws Exception {
        GameDetails gameDetails = gameService.gameById(id);
+
        return ResponseEntity.ok().body(gameDetails);
     }
 }

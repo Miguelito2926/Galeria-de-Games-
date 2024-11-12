@@ -2,7 +2,10 @@ package com.ednaldo.List.Games.services;
 
 import com.ednaldo.List.Games.dto.GameDetails;
 import com.ednaldo.List.Games.dto.GameSimpleDTO;
+import com.ednaldo.List.Games.dto.ListGameDTO;
 import com.ednaldo.List.Games.entities.Game;
+import com.ednaldo.List.Games.entities.GameList;
+import com.ednaldo.List.Games.repositories.GameListRepository;
 import com.ednaldo.List.Games.repositories.GameRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,17 +21,26 @@ public class GameService {
     @Autowired
     private GameRepository gameRepository;
 
+    @Autowired
+    private GameListRepository gameListRepository;
+
     @Transactional(readOnly = true)
-    public List<GameSimpleDTO> findAll() {
-       List<Game> list = gameRepository.findAll();
-       List<GameSimpleDTO> dto = list.stream().map(x -> new GameSimpleDTO(x)).toList();
-       return dto;
+    public List<GameSimpleDTO> findAllGames() {
+        List<Game> list = gameRepository.findAll();
+        List<GameSimpleDTO> dto = list.stream().map(x -> new GameSimpleDTO(x)).toList();
+        return dto;
     }
 
     @Transactional(readOnly = true)
-    public GameDetails gameById(Long id) throws Exception{
+    public GameDetails gameById(Long id) throws ResponseStatusException {
         Game game = gameRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         return new GameDetails(game);
+    }
+
+    public List<ListGameDTO> listGames() {
+        List<GameList> list = gameListRepository.findAll();
+        List<ListGameDTO> dto = list.stream().map(x -> new ListGameDTO(x)).toList();
+        return dto;
     }
 }
