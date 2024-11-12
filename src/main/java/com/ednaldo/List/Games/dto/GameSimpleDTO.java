@@ -1,6 +1,7 @@
 package com.ednaldo.List.Games.dto;
 
 import com.ednaldo.List.Games.entities.Game;
+import com.ednaldo.List.Games.projections.GameSimpleProjection;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -21,5 +22,13 @@ public class GameSimpleDTO implements Serializable {
         year = entity.getYear();
         imgUrl = entity.getImgUrl();
         shortDescription = entity.getShortDescription();
+    }
+
+    public GameSimpleDTO(GameSimpleProjection projection) {
+        id = projection.getId();
+        title = projection.getTitle();
+        year = projection.getYear();
+        imgUrl = projection.getImgUrl();
+        shortDescription = projection.getShortDescription();
     }
 }

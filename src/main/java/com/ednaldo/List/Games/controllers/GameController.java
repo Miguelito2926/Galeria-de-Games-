@@ -2,7 +2,6 @@ package com.ednaldo.List.Games.controllers;
 
 import com.ednaldo.List.Games.dto.GameDetails;
 import com.ednaldo.List.Games.dto.GameSimpleDTO;
-import com.ednaldo.List.Games.dto.ListGameDTO;
 import com.ednaldo.List.Games.services.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

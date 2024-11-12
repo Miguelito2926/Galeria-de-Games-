@@ -5,6 +5,7 @@ import com.ednaldo.List.Games.dto.GameSimpleDTO;
 import com.ednaldo.List.Games.dto.ListGameDTO;
 import com.ednaldo.List.Games.entities.Game;
 import com.ednaldo.List.Games.entities.GameList;
+import com.ednaldo.List.Games.projections.GameSimpleProjection;
 import com.ednaldo.List.Games.repositories.GameListRepository;
 import com.ednaldo.List.Games.repositories.GameRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,9 +39,11 @@ public class GameService {
         return new GameDetails(game);
     }
 
-    public List<ListGameDTO> listGames() {
-        List<GameList> list = gameListRepository.findAll();
-        List<ListGameDTO> dto = list.stream().map(x -> new ListGameDTO(x)).toList();
-        return dto;
+    public List<GameSimpleDTO> findByGameList(Long id) {
+        List<GameSimpleProjection> lisGamesProjections = gameRepository.searchByList(id);
+        List<GameSimpleDTO> dtos = lisGamesProjections.stream().map(x -> new GameSimpleDTO(x)).toList();
+
+        return dtos;
     }
 }
+
