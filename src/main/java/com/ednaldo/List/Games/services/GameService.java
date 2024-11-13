@@ -40,6 +40,7 @@ public class GameService {
     }
 
     public List<GameSimpleDTO> findByGameList(Long id) {
+
         List<GameSimpleProjection> lisGamesProjections = gameRepository.searchByList(id);
         List<GameSimpleDTO> dtos = lisGamesProjections.stream().map(x -> new GameSimpleDTO(x)).toList();
 
