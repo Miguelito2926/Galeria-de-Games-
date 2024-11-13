@@ -27,7 +27,7 @@ public class GameSimpleDTO implements Serializable {
     public GameSimpleDTO(GameSimpleProjection projection) {
         id = projection.getId();
         title = projection.getTitle();
-        year = projection.getYear();
+        year = projection.getGameYear();
         imgUrl = projection.getImgUrl();
         shortDescription = projection.getShortDescription();
     }
