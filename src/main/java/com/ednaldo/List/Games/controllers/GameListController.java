@@ -1,6 +1,6 @@
 package com.ednaldo.List.Games.controllers;
 
-import com.ednaldo.List.Games.dto.GameDetails;
+import com.ednaldo.List.Games.dto.GamePositionDTO;
 import com.ednaldo.List.Games.dto.GameSimpleDTO;
 import com.ednaldo.List.Games.dto.ListGameDTO;
 import com.ednaldo.List.Games.services.GameListService;
@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -35,5 +37,12 @@ public class GameListController {
     public ResponseEntity<List<GameSimpleDTO>> findByList(@PathVariable Long id) {
         List<GameSimpleDTO> byGameList = gameService.findByGameList(id);
         return ResponseEntity.ok().body(byGameList);
+    }
+
+    @PostMapping(value = "/{id}/replacement")
+    public ResponseEntity<Void> move(@PathVariable Long id, @RequestBody GamePositionDTO gamePositionDTO) {
+
+        gameListService.move(id, gamePositionDTO.getOriginIndex(), gamePositionDTO.getDestinationIndex());
+        return ResponseEntity.noContent().build();
     }
 }
